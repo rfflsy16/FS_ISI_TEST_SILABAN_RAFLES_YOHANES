@@ -1,14 +1,56 @@
-def get_all_todo_service():
-    return {"message": "hello from get_all_todo_service"}
+from src.modules.tasks.repository import TaskRepository
+from src.modules.tasks.schema import TaskCreate, TaskUpdate
+from fastapi import HTTPException
+class TaskService:
+    @staticmethod
+    async def get_all_tasks():
+        return await TaskRepository.get_all_tasks()
 
-def create_todo_service():
-    return {"message": "hello from create_todo_service"}
+    @staticmethod
+    async def get_task(task_id: int):
+        tasks = await TaskRepository.get_task(task_id)
 
-def get_todo_service(todo_id: int):
-    return {"message": f"hello from get_todo_service {todo_id}"}
+        if not tasks:
+            raise HTTPException(status_code=404, detail="Task not found")
 
-def update_todo_service(todo_id: int):
-    return {"message": f"hello from update_todo_service {todo_id}"}
+        return tasks
 
-def delete_todo_service(todo_id: int):
-    return {"message": f"hello from delete_todo_service {todo_id}"}
+    @staticmethod
+    async def create_task(task: TaskCreate):
+        return await TaskRepository.create_task(task)
+
+    @staticmethod
+    async def update_task(task_id: int, task: TaskUpdate):
+        updated = await TaskRepository.update_task(task_id, task)
+
+        if not updated:
+            raise HTTPException(status_code=404, detail="Task not found")
+
+        return updated
+
+    @staticmethod
+    async def delete_task(task_id: int):
+        deleted = await TaskRepository.delete_task(task_id)
+
+        if not deleted:
+            raise HTTPException(status_code=404, detail="Task not found")
+
+        return deleted
+
+    @staticmethod
+    async def get_ongoing_tasks():
+        tasks = await TaskRepository.get_ongoing_tasks()
+
+        if not tasks:
+            raise HTTPException(status_code=404, detail="No ongoing tasks found")
+
+        return tasks
+
+    @staticmethod
+    async def get_completed_tasks():
+        tasks = await TaskRepository.get_completed_tasks()
+
+        if not tasks:
+            raise HTTPException(status_code=404, detail="No completed tasks found")
+
+        return tasks

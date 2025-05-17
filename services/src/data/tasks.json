@@ -1,0 +1,14 @@
+[
+    {
+        "title": "Belajar FastAPI",
+        "is_completed": false
+    },
+    {
+        "title": "Bikin Docker Compose",
+        "is_completed": false
+    },
+    {
+        "title": "Testing API",
+        "is_completed": true
+    }
+]

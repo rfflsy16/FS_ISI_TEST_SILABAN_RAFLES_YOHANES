@@ -1,24 +1,47 @@
-from fastapi import APIRouter
-from src.modules.tasks import service
+from fastapi import APIRouter, HTTPException
+from src.modules.tasks.service import TaskService
+from src.modules.tasks.schema import Task, TaskCreate, TaskUpdate
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/tasks",
+    tags=["tasks"]
+)
 
-@router.get("/")
-async def get_all_todo():
-    return service.get_all_todo_service()
+@router.get("/", response_model=list[Task])
+async def get_all_tasks():
+    return await TaskService.get_all_tasks()
 
-@router.post("/")
-async def create_todo():
-    return service.create_todo_service()
 
-@router.get("/{todo_id}")
-async def get_todo(todo_id: int):
-    return service.get_todo_service(todo_id)
+@router.get("/ongoing")
+async def get_ongoing_tasks():
+    return await TaskService.get_ongoing_tasks()
 
-@router.put("/{todo_id}")
-async def update_todo(todo_id: int):
-    return service.update_todo_service(todo_id)
+@router.get("/completed")
+async def get_completed_tasks():
+    return await TaskService.get_completed_tasks()
 
-@router.delete("/{todo_id}")
-async def delete_todo(todo_id: int):
-    return service.delete_todo_service(todo_id)
+@router.get("/{task_id}", response_model=Task)
+async def get_task(task_id: int):
+    task = await TaskService.get_task(task_id)
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task
+
+@router.post("/", response_model=Task)
+async def create_task(task: TaskCreate):
+    return await TaskService.create_task(task)
+
+@router.put("/{task_id}", response_model=Task)
+async def update_task(task_id: int, task: TaskUpdate):
+    updated = await TaskService.update_task(task_id, task)
+    if not updated:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return updated
+
+@router.delete("/{task_id}")
+async def delete_task(task_id: int):
+    deleted = await TaskService.delete_task(task_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return {"message": "Task deleted"}
+
