@@ -4,10 +4,21 @@ from fastapi.responses import Response
 from fastapi.exceptions import HTTPException
 from src.core.error import http_exception_handler, global_exception_handler
 from src.core.database import db
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(
     title="Todo API",
     description="A simple API for managing todos",
     version="1.0.0",
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Izinkan semua origins untuk development
+    allow_credentials=True,
+    allow_methods=["*"],  # Izinkan semua HTTP methods
+    allow_headers=["*"],  # Izinkan semua headers
 )
 
 app.include_router(api_router, prefix="/api")

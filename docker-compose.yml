@@ -12,7 +12,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./migration.sql:/migration.sql
+      - ./services/src/modules/tasks/migration.sql:/docker-entrypoint-initdb.d/migration.sql
 
   backend:
     build: ./services
@@ -25,6 +25,15 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/tododb
     depends_on:
       - db
+
+  frontend:
+    build: ./client
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
 
 volumes:
   postgres_data: 

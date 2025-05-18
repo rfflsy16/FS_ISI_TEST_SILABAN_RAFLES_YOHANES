@@ -28,7 +28,6 @@ export default function Form({ onSubmit, onCancel, initialTitle = "", isEdit = f
                         type="text"
                         value={title}
                         onChange={e => setTitle(e.target.value)}
-                        placeholder="Masukin judul task..."
                     />
                 </div>
                 
