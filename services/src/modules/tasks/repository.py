@@ -4,7 +4,12 @@ from src.modules.tasks.schema import TaskCreate, TaskUpdate
 class TaskRepository:
     @staticmethod
     def _record_to_dict(record):
-        return dict(record)
+        return {
+            "id": record["id"],
+            "title": record["title"],
+            "is_completed": record["is_completed"],
+            "created_at": record["created_at"]
+        }
 
     @staticmethod
     async def get_all_tasks():
