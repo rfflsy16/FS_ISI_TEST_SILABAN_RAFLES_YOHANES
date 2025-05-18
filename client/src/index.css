@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: system-ui, sans-serif;
+}
+
+/* Layout */
+body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 1.5rem 0;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  color: black;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.container {
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Form */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.title-label {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.input-container {
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #9ca3af;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.add-button, .update-button {
+  background-color: #66CFFF;
+  color: black;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+}
+
+.update-button {
+  background-color: #FF9F43;
+}
+
+.add-button {
+  background-color: #66CFFF;
+}
+
+.cancel-button {
+  background-color: #FF6B6B;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #ef4444;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Tasks */
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.task-section h2 {
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.empty-message {
+  text-align: center;
+  color: #6b7280;
+  padding: 0.5rem 0;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.task-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #D0D0D0;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+.task-card.selected {
+  border: 2px solid #66CFFF;
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.task-title {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.task-title .completed {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.edit-icon, .delete-icon, .complete-icon {
+  cursor: pointer;
+}
+
+.completed-icon {
+  cursor: default; /* Cursor normal menandakan tidak bisa diklik */
+}
+
+.task-date {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 2rem 0;
+  color: #6b7280;
+}
