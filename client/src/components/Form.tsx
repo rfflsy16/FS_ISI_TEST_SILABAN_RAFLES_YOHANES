@@ -20,7 +20,13 @@ export default function Form({ onSubmit, onCancel, initialTitle = "", isEdit = f
             <form
                 onSubmit={e => {
                     e.preventDefault()
-                    if (title.trim()) onSubmit(title.trim())
+                    if (title.trim()) {
+                        onSubmit(title.trim())
+                        if (!isEdit) {
+                            // Reset input hanya jika tidak dalam mode edit
+                            setTitle("")
+                        }
+                    }
                 }}
             >
                 <div className="input-container">
@@ -28,6 +34,7 @@ export default function Form({ onSubmit, onCancel, initialTitle = "", isEdit = f
                         type="text"
                         value={title}
                         onChange={e => setTitle(e.target.value)}
+
                     />
                 </div>
                 
